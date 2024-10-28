@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Vault | Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/toggle.css">
+    <link rel="stylesheet" href="css/toast.css">
+    {{!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+
+                <form class="sign-in-form" id="loginForm">
+                    <h2 class="title">Login</h2>
+                    <div class="input-field">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" placeholder="Email" id="loginEmail" name="loginEmail" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="text" placeholder="Password" id="loginPassword" name="loginPassword" />
+                    </div>
+                    <input type="submit" value="Login" class="btn solid">
+                </form>
+
+                <form class="sign-up-form" id="signupForm">
+                    <h2 class="title">Sign Up</h2>
+                    <div class="input-field">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <input type="text" placeholder="Email" id="signupEmail" name="signupEmail" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" placeholder="Name" id="signupName" name="signupName" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <input type="text" placeholder="Username" id="signupUsername" name="signupUsername" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" id="signupPassword" name="signupPassword" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Confirm Password" id="signupPassword2"
+                            name="signupPassword2" />
+                    </div>
+
+
+                    <div class="col-sm-5">
+                        <button type="button" class="btn btn-toggle" data-toggle="button" aria-pressed="false"
+                            autocomplete="off" id="type">
+                            <div class="handle"></div>
+                        </button>
+                    </div>
+                    <input type="submit" value="Sign Up" class="btn solid">
+                </form>
+
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>New?</h3>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint expedita hic soluta.</p>
+                    <button class="btn transparent" id="sign-up-btn">Sign Up</button>
+                </div>
+
+                <img src="/images/art-city-exhibition-exposition-gallery-svgrepo-com.svg" class="image" alt="">
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>One of us?</h3>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint expedita hic soluta.</p>
+                    <button class="btn transparent" id="sign-in-btn">Just login</button>
+                </div>
+
+                <img src="/images/art-and-design-svgrepo-com.svg" class="image" alt="">
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="toasts" id="toasts">
+    </div>
+
+</body>
+<script type="text/javascript" src="js/login.js"></script>
+
+</html>
