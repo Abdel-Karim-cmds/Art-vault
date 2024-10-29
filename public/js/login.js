@@ -23,17 +23,17 @@ signupForm.addEventListener('submit', async e => {
 
     console.log(type)
 
-    if(!name || !email || !password || !password2 || !username){
-        createNotification('Please fill in all the fields','warning');
+    if (!name || !email || !password || !password2 || !username) {
+        showToast('Please fill in all the fields', 'warning');
         return;
     }
 
     if (password !== password2) {
-        createNotification('Passwords do not match', 'warning')
+        showToast('Passwords do not match', 'warning')
         return;
     }
     if (!verifyPassword(password)) {
-        createNotification('Password is not strong enough', 'warning')
+        showToast('Password is not strong enough', 'warning')
         return;
     }
     const response = await fetch('/signup', {
@@ -50,13 +50,13 @@ signupForm.addEventListener('submit', async e => {
         })
     })
     const data = await response.json();
-    if (response.status === 500){
-        createNotification(data.error, 'warning')
+    if (response.status === 500) {
+        showToast(data.error, 'warning')
     }
     console.log(data)
     console.log(response.status)
     if (response.status === 200) {
-        createNotification(data.message, 'success')
+        showToast(data.message, 'success')
         // window.location.href = '/login'
         signupForm.reset();
         sign_in_btn.click();
@@ -64,25 +64,41 @@ signupForm.addEventListener('submit', async e => {
 })
 
 
+loginForm.addEventListener('submit', async e => {
+    e.preventDefault()
+    const email = document.getElementById('loginEmail').value
+    const password = document.getElementById('loginPassword').value
+    const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email,
+            password
+        })
+    })
 
-// Notifications
+    const data = await response.json();
+    console.log(data.success)
+    if (data.success) {
+        console.log(data)
+        showToast(data.message, 'success')
+        if (data.userType == 'Buyer') {
 
-const toasts = document.querySelector('#toasts');
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 3000)
+        }
+        else if (data.userType == 'Artist') {
 
-const createNotification = (message, type) => {
-    // console.log(message, type);
-    const toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.innerText = message;
-    toast.classList.add(type);
-    toasts.appendChild(toast);
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-};
-
-
-function verifyPassword(password) {
-    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-    return strongRegex.test(password) ? true : false;    //returning boolean value of the password validation check
-}
+            setTimeout(() => {
+                window.location.href = '/profile'
+            }, 3000)
+        }
+    }
+    else {
+        console.log('There is something wrong')
+        showToast(data.error, 'error')
+    }
+})

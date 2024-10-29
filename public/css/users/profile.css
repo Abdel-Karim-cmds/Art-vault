@@ -8,8 +8,8 @@
     color: #fff;
 }
 
-.fa-2x.active{
-/* .fa-2x:hover { */
+.fa-2x.active {
+    /* .fa-2x:hover { */
     color: #000;
 }
 
@@ -138,16 +138,75 @@ ul li:hover a i {
     background-color: #fff;
 }
 
-.area {
+/* .area {
     float: left;
     background: #e2e2e2;
     width: 100%;
     height: 100%;
-}
-
+} */
+/* 
 @font-face {
     font-family: 'Titillium Web';
     font-style: normal;
     font-weight: 300;
     src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url('http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff') format('woff');
+}
+ */
+
+.float-label .form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.float-label .input-field {
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    width: 100%;
+    color: #888;
+    font-family: 'Lato', 'sans-serif';
+    font-size: 12px;
+    font-weight: 300;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.float-label .float-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    color: #999;
+    /* font-size: 12px; */
+    pointer-events: none;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+.float-label .input-field:focus+.float-label,
+.float-label .input-field:not(.empty)+.float-label {
+    top: -10px;
+    font-size: 12px;
+    color: #000;
+    background-color: transparent;
+    background-color: #fff;
+    /* padding: 0 5px; */
+}
+
+.float-label:focus-visible {
+    border-color: #000 !important;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+@media screen and (max-width: 678px) {
+    section {
+        margin-left: 60px;
+    }
+
+}
+
+#output {
+    width: 120px;
+    height: 150px;
+    display: none;
 }
