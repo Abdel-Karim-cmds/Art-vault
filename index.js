@@ -112,6 +112,10 @@ app.get('/profile', isLogged, (request, response) => {
     response.render('users/profile', { username: Decrypt(request.session.user.Username) })
 })
 
+app.get('/socials', isLogged, (request, response) => {
+    response.render('users/User Social', { username: Decrypt(request.session.user.Username) })
+})
+
 app.get('/user/:username', (request, response) => {
     response.render('art')
 })
@@ -166,6 +170,47 @@ app.get('/user-photo', (req, res) => {
     });
 });
 
+app.get('/profile-pic/:username',(request,response)=>{
+    const username = request.params.username
+    const encryptedUsername = Encrypt(username)
+    console.log(encryptedUsername)
+    const query = 'SELECT Photo FROM users WHERE Username = ?';
+    pool.query(query, [encryptedUsername], (error, results) => {
+        if (error) {
+            console.error('Error retrieving image:', error);
+            response.status(500).send('Error retrieving image');
+        } else if (results.length === 0) {
+            response.status(404).send('Image not found');
+        } else {
+            const imageData = results[0].Photo;
+            response.setHeader('Content-Type', 'image/jpeg');
+            response.send(imageData);
+        }
+    });
+})
+
+// Get all the artists
+
+app.get('/get-all-artists',(request,response)=>{
+    const query = 'SELECT Name, Username, Instagram, Twitter, Youtube,Tiktok FROM users WHERE TYPE = "ARTIST"'
+    pool.query(query,(err,results)=>{
+        if(err){
+            return response.status(500).json({success:false, message:"Error fetching artists"})
+        }
+        console.log(results)
+        const artists = results.map(artist=>{
+            return {
+                Name:artist.Name,
+                Username:Decrypt(artist.Username),
+                Instagram:artist.Instagram,
+                Twitter:artist.Twitter,
+                Youtube:artist.Youtube,
+                Tiktok:artist.Tiktok
+            }
+        })
+        return response.status(200).send(artists)
+    })
+})
 
 // Logout
 app.get('/logout', (request, response) => {
