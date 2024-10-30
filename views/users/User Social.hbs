@@ -35,9 +35,9 @@
                 </a>
             </li>
 
-            <li class="active">
-                <a href="#">
-                    <i class="fa fa-user fa-2x active" aria-hidden="true"></i>
+            <li>
+                <a href="/profile">
+                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
                     <span class="nav-text">
                         My profile
                     </span>
@@ -52,18 +52,9 @@
                     </span>
                 </a>
             </li>
-
-            <li>
-                <a href="#">
-                    <i class="fa fa-cogs fa-2x"></i>
-                    <span class="nav-text">
-                        Account Settings
-                    </span>
-                </a>
-            </li>
-            <li>
+            <li class="active">
                 <a href="/socials">
-                    <i class="fa fa-camera-retro fa-2x"></i>
+                    <i class="fa fa-camera-retro fa-2x active"></i>
                     <span class="nav-text">
                         Social Media Handles
                     </span>
@@ -94,231 +85,43 @@
                     </nav>
                 </div>
             </div>
-
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <img src="/user-photo" alt="avatar" class="square-circle img-fluid"
-                                style="width: 150px;" id="id_photo">
-                            <h5 class="my-3">Actions</h5>
-                            <div class="d-flex justify-content-center mb-2">
-                                <button class="btn btn-outline-dark ms-2" data-toggle="modal"
-                                    data-target="#modify_photo">Change
-                                    Photo</button>
-                            </div>
-                            <div class="d-flex justify-content-center mb-2">
-                                <button class="btn btn-outline-dark ms-2" data-toggle="modal"
-                                    data-target="#modify_profile">
-                                    Edit Profile</button>
-                            </div>
-                            <div class="d-flex justify-content-center mb-2">
-                                <button class="btn btn-outline-dark ms-2" data-toggle="modal"
-                                    data-target="#modify_password">Modify
-                                    Password</button>
-                            </div>
+                
+                    <form class="float-label" id="socialsForm">
+
+                        <div class="form-group">
+                            <input type="text" id="instagram" name="instagram" class="input-field">
+                            <label for="instagram" class="float-label">Instagram:</label>
                         </div>
-                    </div>
 
-                </div>
-
-                <div class="col-lg-8">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Username</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0" id="username"></p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Full Name</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0" id="Full_Name"></p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Email</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0" id="email"></p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0">Phone</p>
-                                </div>
-                                <div class="col-sm-9">
-                                    <p class="text-muted mb-0" id="phone"></p>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <input type="text" id="youtube" name="youtube" class="input-field">
+                            <label for="youtube" class="float-label">Youtube:</label>
                         </div>
-                    </div>
 
-                </div>
+                        <div class="form-group">
+                            <input type="text" id="x" name="x" class="input-field">
+                            <label for="x" class="float-label">X (Fomerly Twitter):</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="tiktok" name="tiktok" class="input-field">
+                            <label for="tiktok" class="float-label">TikTok:</label>
+                        </div>
+                        <input class="btn btn-outline-dark ms-2" type="submit" value="Update Socials"></input>
+
+                    </form>
             </div>
+
         </div>
     </section>
-
-    <!-- Modal for Modifying password -->
-    <div class="modal fade" id="modify_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modify password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="float-label" id="passwordModal">
-
-                        <div class="form-group">
-                            <input type="password" id="current_password" name="current_password" class="input-field">
-                            <label for="current_password" class="float-label">Enter current password:</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" id="new_password" name="new_password" class="input-field">
-                            <label for="new_password" class="float-label">Enter your new password:</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" id="confirm_password" name="confirm_password" class="input-field">
-                            <label for="confirm_password" class="float-label">Confirm your new password:</label>
-                        </div>
-
-                        <p>The password must be at least:</p>
-                        <p>Be 8 characters long</p>
-                        <p>Contain at least one uppercase letter</p>
-                        <p>Contain at least one lowercase letter</p>
-                        <p>Contain at least one number</p>
-                        <p>Contain at least one special character</p>
-
-                        <input class="btn btn-outline-dark ms-2" type="submit" value="Change password"></input>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark ms-2" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{!-- End of the modal --}}
-
-
-    <!-- Modal for Submitting a new profile photo -->
-    <div class="modal fade" id="modify_photo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Upload ID photo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <p>Please ensure that the photo is in portrait mode</p>
-                    <p>The photo must be not more than 8MB</p>
-
-                    <form class="float-label" id="idPhotoForm">
-
-                        <div class="form-group">
-                            <input type="file" id="idPhoto" name="idPhoto" class="input-field"
-                                accept=".png,.jpeg,.jpg,.bmp" onchange="loadFile(event)">
-                            <label for="idPhoto" class="float-label">Id Photo:</label>
-                        </div>
-                        <img id="output" />
-                        <br>
-                        <input class="btn btn-outline-dark ms-2" type="submit" value="Upload Photo"></input>
-
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark ms-2" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{!-- End of the modal --}}
-
-
-    <!-- Modal for User's details -->
-    <div class="modal fade" id="modify_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modify password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <form class="float-label" id="editModal">
-
-                        <div class="form-group">
-                            <input type="text" id="username_form" name="username_form" class="input-field">
-                            <label for="username_form" class="float-label">Username:</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" id="full_name_form" name="full_name_form" class="input-field">
-                            <label for="full_name_form" class="float-label">Full Name:</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" id="email_form" name="email_form" class="input-field">
-                            <label for="email_form" class="float-label">Email:</label>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" id="phone_form" name="phone_form" class="input-field">
-                            <label for="phone_form" class="float-label">Phone Number:</label>
-                        </div>
-                        <input class="btn btn-outline-dark ms-2" type="submit" value="Edit Details"></input>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark ms-2" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{!-- End of the modal --}}
-
-    {{!-- <div class="toasts" id="toasts">
-    </div> --}}
-
-    {{!-- <div id="toast" class="toast">
-        <div class="toast-body">
-            Your message here
-        </div>
-    </div> --}}
-
 
     <div id="toast" class="toast">
       <div class="toast-body">
       </div>
     </div>
 
-    <script src="js/users/profile.js"></script>
+    <script src="js/users/socials.js"></script>
     <script src="js/functions.js"></script>
 
 

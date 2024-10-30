@@ -170,7 +170,7 @@ app.get('/user-photo', (req, res) => {
     });
 });
 
-app.get('/profile-pic/:username',(request,response)=>{
+app.get('/profile-pic/:username', (request, response) => {
     const username = request.params.username
     const encryptedUsername = Encrypt(username)
     console.log(encryptedUsername)
@@ -191,24 +191,40 @@ app.get('/profile-pic/:username',(request,response)=>{
 
 // Get all the artists
 
-app.get('/get-all-artists',(request,response)=>{
+app.get('/get-all-artists', (request, response) => {
     const query = 'SELECT Name, Username, Instagram, Twitter, Youtube,Tiktok FROM users WHERE TYPE = "ARTIST"'
-    pool.query(query,(err,results)=>{
-        if(err){
-            return response.status(500).json({success:false, message:"Error fetching artists"})
+    pool.query(query, (err, results) => {
+        if (err) {
+            return response.status(500).json({ success: false, message: "Error fetching artists" })
         }
         console.log(results)
-        const artists = results.map(artist=>{
+        const artists = results.map(artist => {
             return {
-                Name:artist.Name,
-                Username:Decrypt(artist.Username),
-                Instagram:artist.Instagram,
-                Twitter:artist.Twitter,
-                Youtube:artist.Youtube,
-                Tiktok:artist.Tiktok
+                Name: artist.Name,
+                Username: Decrypt(artist.Username),
+                Instagram: artist.Instagram,
+                Twitter: artist.Twitter,
+                Youtube: artist.Youtube,
+                Tiktok: artist.Tiktok
             }
         })
         return response.status(200).send(artists)
+    })
+})
+
+app.get('/get-socials', (request, response) => {
+    const { Username } = request.session.user
+    const query = 'SELECT Instagram, Twitter, Youtube, Tiktok FROM users WHERE Username = ?'
+    pool.query(query, [Username], (err, results) => {
+        if (err) {
+            console.error('Error retrieving socials:', err);
+            response.status(500).send('Error retrieving socials');
+        } else if (results.length === 0) {
+            response.status(404).send('Socials not found');
+        } else {
+            const socials = results[0];
+            response.send(socials);
+        }
     })
 })
 
@@ -339,13 +355,13 @@ app.patch('/change-password', (request, response) => {
 
 app.put('/edit-profile', (request, response) => {
     const { full_name, email, phone, username } = request.body
-    const {Username} = request.session.user
+    const { Username } = request.session.user
 
     pool.query(`UPDATE users SET Name = ?, email = ?, phone = ?, username = ? WHERE Username = ?`, [full_name, Encrypt(email), phone, Encrypt(username), Username], (err, result) => {
         if (err) {
             console.log(err)
             return response.status(500).json({ message: "Something went wrong" })
-        }   
+        }
         request.session.user.Name = full_name
         request.session.user.Email = Encrypt(email)
         request.session.user.Phone = phone
@@ -354,5 +370,17 @@ app.put('/edit-profile', (request, response) => {
     })
 })
 
+app.put('/edit-socials', (request, response) => {
+    const { instagram, twitter, youtube, tiktok } = request.body
+    const { Username } = request.session.user
+
+    pool.query(`UPDATE users SET Instagram = ?, Twitter = ?, Youtube = ?, Tiktok = ? WHERE Username = ?`, [instagram, twitter, youtube, tiktok, Username], (err, result) => {
+        if (err) {
+            console.log(err)
+            return response.status(500).json({ message: "Something went wrong" })
+        }
+        response.status(200).json({ message: "Socials updated successfully" })
+    })
+})
 
 app.listen(port, () => { console.log(`Listening on port ${port}`) })

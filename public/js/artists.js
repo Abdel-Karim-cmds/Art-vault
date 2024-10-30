@@ -58,7 +58,7 @@ function populateArtists(artists) {
                     icons.innerHTML += `<a href="${currentArtist.Youtube}" target="_blank"><i class="fa-brands fa-youtube"></i></a>`
                 }
                 if(currentArtist.Tiktok){
-                    icons.innerHTML += `<a href="${currentArtist.TikTok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>`
+                    icons.innerHTML += `<a href="${currentArtist.Tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>`
                 }
 
                 border.appendChild(h2);

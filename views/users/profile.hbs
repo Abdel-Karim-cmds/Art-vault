@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art vault | {{username}}'s Profile</title>
     <link rel="stylesheet" href="css/users/profile.css">
-    
+
     <link rel="stylesheet" href="css/toast.css">
 
     <!-- Bootstrap core CSS -->
@@ -23,7 +23,6 @@
 
 
 <body>
-    {{!-- <div class="area"></div> --}}
     <nav class="main-menu">
         <ul>
             <li>
@@ -36,7 +35,7 @@
             </li>
 
             <li class="active">
-                <a href="#">
+                <a href="/profile">
                     <i class="fa fa-user fa-2x active" aria-hidden="true"></i>
                     <span class="nav-text">
                         My profile
@@ -49,15 +48,6 @@
                     <i class="fa fa-puzzle-piece fa-2x" aria-hidden="true"></i>
                     <span class="nav-text">
                         My Arts
-                    </span>
-                </a>
-            </li>
-
-            <li>
-                <a href="#">
-                    <i class="fa fa-cogs fa-2x"></i>
-                    <span class="nav-text">
-                        Account Settings
                     </span>
                 </a>
             </li>
@@ -99,8 +89,8 @@
                 <div class="col-lg-4">
                     <div class="card mb-4">
                         <div class="card-body text-center">
-                            <img src="/user-photo" alt="avatar" class="square-circle img-fluid"
-                                style="width: 150px;" id="id_photo">
+                            <img src="/user-photo" alt="avatar" class="square-circle img-fluid" style="width: 150px;"
+                                id="id_photo">
                             <h5 class="my-3">Actions</h5>
                             <div class="d-flex justify-content-center mb-2">
                                 <button class="btn btn-outline-dark ms-2" data-toggle="modal"
@@ -314,8 +304,8 @@
 
 
     <div id="toast" class="toast">
-      <div class="toast-body">
-      </div>
+        <div class="toast-body">
+        </div>
     </div>
 
     <script src="js/users/profile.js"></script>
