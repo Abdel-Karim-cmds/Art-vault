@@ -33,7 +33,7 @@ nav.main-menu.expanded {
 .main-menu {
     background: #000;
     border-right: 1px solid #e5e5e5;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     height: 100%;
@@ -44,6 +44,7 @@ nav.main-menu.expanded {
     transition: width .05s linear;
     -webkit-transform: translateZ(0) scale(1, 1);
     z-index: 1000;
+    overflow-y: auto;
 }
 
 .main-menu>ul {

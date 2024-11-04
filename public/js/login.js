@@ -88,13 +88,13 @@ loginForm.addEventListener('submit', async e => {
 
             setTimeout(() => {
                 window.location.href = '/'
-            }, 3000)
+            }, 1000)
         }
         else if (data.userType == 'Artist') {
 
             setTimeout(() => {
                 window.location.href = '/profile'
-            }, 3000)
+            }, 1000)
         }
     }
     else {

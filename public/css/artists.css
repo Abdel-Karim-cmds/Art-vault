@@ -20,18 +20,25 @@
 }
 
 .fa-youtube:hover {
+  text-decoration: none !important;
   color: #FF0000;
+  transition: 1s;
 }
 
 .fa-x-twitter:hover {
+  text-decoration: none !important;
   color: #000;
+  transition: 1s;
 }
 
 .fa-instagram:hover {
   color: #C13584;
+  text-decoration: none !important;
+  transition: 1s;
 }
 
 .fa-tiktok:hover{
+  text-decoration: none !important;
   color: #000;  
   transition: 1s;
 }

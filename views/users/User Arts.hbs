@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art vault | {{username}}'s Art pieces</title>
+    <link rel="stylesheet" href="css/users/profile.css">
+    <link rel="stylesheet" href="css/users/art.css">
+
+    <link rel="stylesheet" href="css/toast.css">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav class="main-menu">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Home
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/profile">
+                    <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        My profile
+                    </span>
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="/my-arts">
+                    <i class="fa fa-puzzle-piece fa-2x active" aria-hidden="true"></i>
+                    <span class="nav-text">
+                        My Arts
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/socials">
+                    <i class="fa fa-camera-retro fa-2x"></i>
+                    <span class="nav-text">
+                        Social Media Handles
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="logout">
+            <li>
+                <a href="/logout">
+                    <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">
+                        Logout
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section class="bg">
+        <div class="container py-5" id="artContainers">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                        <li class="breadcrumb-item active" aria-current="page">{{username}}'s Arts</li>
+                    </nav>
+                </div>
+            </div>  
+            <div id="artContainer"></div>
+
+            <button class="btn btn-outline-dark ms-2" data-toggle="modal" data-target="#UploadArt">Upload a new art
+                piece</button>
+        </div>
+
+
+
+    </section>
+
+    <div id="toast" class="toast">
+        <div class="toast-body">
+        </div>
+    </div>
+
+
+    <!-- Modal for Submitting a new Art -->
+    <div class="modal fade" id="UploadArt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload your Art</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    {{!-- <p>Please ensure that the photo is in portrait mode</p> --}}
+                    <p>The photo must be not more than 8MB</p>
+
+                    <form class="float-label" id="artUploadForm">
+
+                        <div class="form-group">
+                            <input type="file" id="artPhoto" name="artPhoto" class="input-field"
+                                accept=".png,.jpeg,.jpg,.bmp" onchange="loadFile(event)">
+                            <label for="artPhoto" class="float-label">Photo:</label>
+                        </div>
+                        <img id="output" />
+                        <br>
+
+                        <div class="form-group">
+                            <input type="text" id="title" name="title" class="input-field">
+                            <label for="title" class="float-label">Title:</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="description" name="description" class="input-field">
+                            <label for="description" class="float-label">Description:</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="dimensions" name="dimensions" class="input-field">
+                            <label for="dimensions" class="float-label">Dimensions (e.g. mm, cm, m, in):</label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" id="price" name="price" step="0.01" class="input-field">
+                            <label for="price" class="float-label">Price (in KSH):</label>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="art-type" class="input-field">
+                                <option value="">Please select an art type</option>
+                                <option value="abstract">Abstract</option>
+                                <option value="surrealism">Surrealism</option>
+                                <option value="realism">Realism</option>
+                                <option value="nature">Nature</option>
+                                <option value="urban">Urban</option>
+                                <option value="portrait">Portrait</option>
+                                <option value="oil_painting">Oil Painting</option>
+                                <option value="watercolor">Watercolor</option>
+                                <option value="charcoal">Charcoal</option>
+                                <option value="digital_art">Digital Art</option>
+                                <option value="sculpture">Sculpture</option>
+                                <option value="minimalism">Minimalism</option>
+                                <option value="realism">Realism</option>
+                                <option value="vibrant">Vibrant</option>
+                                <option value="monochrome">Monochrome</option>
+                                <option value="warm_tones">Warm Tones</option>
+                                <option value="cool_tones">Cool Tones</option>
+                                <option value="decorative">Decorative</option>
+                            </select>
+                            <label for="art-type" class="float-label">Art Type: </label>
+                        </div>
+
+                        <input class="btn btn-outline-dark ms-2" type="submit" value="Upload Art"></input>
+
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark ms-2" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- End of the modal --}}
+
+
+    <script src="js/users/arts.js"></script>
+    <script src="js/functions.js"></script>
+
+
+</body>
+
+
+</html>

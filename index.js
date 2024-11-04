@@ -9,6 +9,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser')
 const { Encrypt, Decrypt } = require('./Security.js')
 const fs = require('fs')
+const uuid4 = require('uuid4')
 
 const oneDay = 86400000
 
@@ -20,10 +21,7 @@ const pool = mysql.createPool({
     multipleStatements: true
 })
 
-console.log(Decrypt('209103eaf3bcbd66a22710b25ac2233b'))
-
-
-const connection = pool.promise()
+// const connection = pool.promise()
 //Remove cache
 
 app.use((request, response, next) => {
@@ -81,6 +79,7 @@ function loggedIn(request, response, next) {
 
 
 const upload = multer({ dest: '/uploads' })
+const arts = multer({ dest: '/arts' })
 
 
 //session middleware
@@ -91,7 +90,8 @@ app.use(sessions({
     cookie: { maxAge: oneDay, httpOnly: false },
     resave: false,
     store: new filestore({ logFn: function () { } }),
-    path: "./sessions/"
+    path: "./sessions/",
+    ttl: oneDay
 }));
 
 // GET METHODS
@@ -114,6 +114,10 @@ app.get('/profile', isLogged, (request, response) => {
 
 app.get('/socials', isLogged, (request, response) => {
     response.render('users/User Social', { username: Decrypt(request.session.user.Username) })
+})
+
+app.get('/my-arts', isLogged, (request, response) => {
+    response.render('users/User Arts', { username: Decrypt(request.session.user.Username) })
 })
 
 app.get('/user/:username', (request, response) => {
@@ -151,7 +155,7 @@ app.get('/user-photo', (req, res) => {
     const { Username } = req.session.user
 
     // console.log("LINE 214")
-    console.log('YO')
+    // console.log('YO')
 
     const query = 'SELECT Photo FROM users WHERE Username = ?';
     pool.query(query, [Username], (error, results) => {
@@ -228,6 +232,39 @@ app.get('/get-socials', (request, response) => {
     })
 })
 
+app.get('/get-arts', (request, response) => {
+    const { Username } = request.session.user
+    const query = 'SELECT * FROM arts WHERE Username = ?'
+    pool.query(query, [Username], (err, results) => {
+        if (err) {
+            console.error('Error retrieving arts:', err);
+            response.status(500).send('Error retrieving arts');
+        } else if (results.length === 0) {
+            response.status(404).send('Arts not found');
+        } else {
+            response.send(results);
+
+        }
+    })
+})
+
+app.get('/art-photo/:id',(request,response)=>{
+    const {id} = request.params
+    const query = 'SELECT Photo FROM arts WHERE ID = ?';
+    pool.query(query, [id], (error, results) => {
+        if (error) {
+            console.error('Error retrieving image:', error);
+            response.status(500).send('Error retrieving image');
+        } else if (results.length === 0) {
+            response.status(404).send('Image not found');
+        } else {
+            const imageData = results[0].Photo;
+            response.setHeader('Content-Type', 'image/jpeg');
+            response.send(imageData);
+        }
+    });
+})
+
 // Logout
 app.get('/logout', (request, response) => {
     request.session.destroy((err) => {
@@ -267,6 +304,7 @@ app.post('/login', (request, response) => {
             return response.status(500).json({ error: "Error login you in", success: false });
         }
         else if (result.length > 0) {
+            delete result[0].Photo
             request.session.user = result[0]
             // console.log(result[0].Type)
             response.status(200).json({ userType: result[0].Type, success: true, message: "Logins successful" });
@@ -331,6 +369,39 @@ app.post('/upload-photo', upload.single('photo'), (request, response) => {
     });
 })
 
+app.post('/upload-art', arts.single('photo'), (request, response) => {
+    console.log(request.file)
+    console.log(request.body)
+    const imageFile = request.file.path;
+    const imageData = fs.readFileSync(imageFile);
+
+    console.log(request.session.user)
+    const { Username } = request.session.user;
+
+    const { title, description, price, dimensions, type } = request.body;
+    // console.log(request.body)
+    const id = uuid4();
+    console.log(id, Username)
+    console.log(title, description, price, dimensions, type)
+    const query = 'INSERT INTO arts (ID, Username, Title, Description, Price, Dimensions, Type, Photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    pool.query(query, [id, Username, title, description, price, dimensions, type, imageData], (err, result) => {
+        if (err) {
+            console.log(err)
+            if (err.sqlState === '08S01') {
+                return response.status(500).json({ message: "File too big" })
+            }
+            return response.status(500).json({ message: "Something went wrong here" })
+        }
+        console.log(result)
+        return response.status(200).json({ message: "Art uploaded successfully" })
+    })
+    fs.unlink(imageFile, (err) => {
+        if (err) {
+            console.error('Error deleting file:', err);
+        }
+    })
+})
+
 // PATCH METHOD
 app.patch('/change-password', (request, response) => {
     const { newPassword, current_password } = request.body
@@ -382,5 +453,26 @@ app.put('/edit-socials', (request, response) => {
         response.status(200).json({ message: "Socials updated successfully" })
     })
 })
+
+
+// DELETE Methods
+
+// Deleting an art piece
+app.delete('/delete-art/:id', (request, response) => {
+    const { id } = request.params
+    const { Username } = request.session.user
+    const query = 'DELETE FROM arts WHERE ID = ? AND Username = ?';
+    pool.query(query, [id, Username], (err, results) => {
+        if (err) {
+            console.error('Error deleting art:', err);
+            return response.status(500).json({message:'Error deleting art', success:false});
+        } else if (results.affectedRows === 0) {
+            return response.status(404).json({message:'Art not found', success:false});
+        } else {
+            return response.status(200).json({message:'Art deleted successfully', success:true});
+        }
+    })
+})
+
 
 app.listen(port, () => { console.log(`Listening on port ${port}`) })
