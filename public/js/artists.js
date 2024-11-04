@@ -35,15 +35,18 @@ function populateArtists(artists) {
                     card.style.backgroundImage =`url("/profile-pic/${currentArtist.Username}")`;
                 }
 
-                card.onclick = () => {
-                    window.location.href = `/artist/${currentArtist.Username}`;
-                }
+                // card.onclick = () => {
+                //     window.location.href = `/artist/${currentArtist.Username}`;
+                // }
 
                 const border = document.createElement('div');
                 border.classList.add('border');
 
                 const h2 = document.createElement('h2');
                 h2.innerHTML = currentArtist.Name;
+                h2.onclick = () => {
+                    window.location.href = `/artists/${currentArtist.Username}`
+                }
 
                 const icons = document.createElement('div');
                 icons.classList.add('icons');

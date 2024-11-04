@@ -120,7 +120,7 @@ app.get('/my-arts', isLogged, (request, response) => {
     response.render('users/User Arts', { username: Decrypt(request.session.user.Username) })
 })
 
-app.get('/user/:username', (request, response) => {
+app.get('/artists/:username', (request, response) => {
     response.render('art')
 })
 
