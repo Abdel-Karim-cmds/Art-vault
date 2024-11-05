@@ -94,10 +94,12 @@ function populateUserInfo(data) {
     document.getElementById('email').innerText = data.Email
     document.getElementById('Full_Name').innerText = data.Name
     document.getElementById('phone').innerText = data.Phone
+    document.getElementById('Bio').innerText = data.Bio
     document.getElementById('username_form').value = data.Username
     document.getElementById('email_form').value = data.Email
     document.getElementById('full_name_form').value = data.Name
     document.getElementById('phone_form').value = data.Phone
+    document.getElementById('bio_form').value = data.Bio
 }
 
 
@@ -182,6 +184,7 @@ document.getElementById('editModal').addEventListener('submit', async e => {
     const email = document.getElementById('email_form').value
     const full_name = document.getElementById('full_name_form').value
     const phone = document.getElementById('phone_form').value
+    const bio = document.getElementById('bio_form').value
 
     if (!username || !email || !full_name || !phone) {
         showToast('Please fill in all the fields', 'warning');
@@ -197,7 +200,8 @@ document.getElementById('editModal').addEventListener('submit', async e => {
             username,
             email,
             full_name,
-            phone
+            phone,
+            bio
         })
     })
 

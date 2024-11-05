@@ -121,7 +121,7 @@ app.get('/my-arts', isLogged, (request, response) => {
 })
 
 app.get('/artists/:username', (request, response) => {
-    response.render('art')
+    response.render('Artist profile',{username:request.params.username})
 })
 
 app.get('/not-found', (request, response) => {
@@ -133,7 +133,7 @@ app.get('/user-info', async (request, response) => {
     const { user } = request.session
     const username = Decrypt(user.Username)
 
-    const sql = `SELECT Email,Username,Name,Phone FROM users WHERE username = '${user.Username}'`
+    const sql = `SELECT Email,Username,Name,Phone, Bio FROM users WHERE username = '${user.Username}'`
     pool.query(sql, (err, result) => {
         if (err) {
             console.log(err)
@@ -425,10 +425,10 @@ app.patch('/change-password', (request, response) => {
 // PUT Methods
 
 app.put('/edit-profile', (request, response) => {
-    const { full_name, email, phone, username } = request.body
+    const { full_name, email, phone, username,bio } = request.body
     const { Username } = request.session.user
 
-    pool.query(`UPDATE users SET Name = ?, email = ?, phone = ?, username = ? WHERE Username = ?`, [full_name, Encrypt(email), phone, Encrypt(username), Username], (err, result) => {
+    pool.query(`UPDATE users SET Name = ?, email = ?, phone = ?, username = ?, Bio = ? WHERE Username = ?`, [full_name, Encrypt(email), phone, Encrypt(username), bio, Username], (err, result) => {
         if (err) {
             console.log(err)
             return response.status(500).json({ message: "Something went wrong" })
@@ -437,6 +437,7 @@ app.put('/edit-profile', (request, response) => {
         request.session.user.Email = Encrypt(email)
         request.session.user.Phone = phone
         request.session.user.Username = Encrypt(username)
+        request.session.user.Bio = bio
         response.status(200).json({ message: "Profile updated successfully" })
     })
 })
