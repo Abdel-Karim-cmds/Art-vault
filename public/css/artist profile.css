@@ -221,7 +221,7 @@ body {
 
 .left-content {
     margin-top: 60px;
-    padding: 25px 20px 40px;
+    padding: 0px 20px 40px;
     color: var(--primary-color);
     height: 100vh;
     overflow: auto;

@@ -124,6 +124,14 @@ app.get('/artists/:username', (request, response) => {
     response.render('Artist profile',{username:request.params.username})
 })
 
+app.get('/gallery',(request,response)=>{
+    response.render('Gallery')
+})
+
+app.get('/gallery/:tag',(request,response)=>{
+    response.render('Gallery Tag')
+})
+
 app.get('/not-found', (request, response) => {
     response.render('404')
 })
@@ -319,6 +327,74 @@ app.get('/get-art/:username',(request,response)=>{
         }
     })
 
+})
+
+app.get('/get-all-arts',(request,response)=>{
+    let arts = [];
+    // const query = `SELECT ID, Title, Description, Dimensions, Price  FROM arts WHERE Username = ?`;
+    const query = `
+    SELECT a.ID, a.Title, a.Description, a.Dimensions, a.Price, a.Type, u.Name, u.Email, u.Phone
+    FROM arts a
+    JOIN users u ON a.Username = u.Username
+    `
+    pool.query(query,(error,results) =>{
+        if(error){
+            console.error('Error retrieving artist:', error);
+            response.status(500).send('Error retrieving arts');
+        }
+        else{
+            results.forEach(art => {
+                arts.push({
+                    ID: art.ID,
+                    Title: art.Title,
+                    Description: art.Description,
+                    Dimensions: art.Dimensions,
+                    Price: art.Price,
+                    Type: art.Type,
+                    Name: art.Name,
+                    Email: Decrypt(art.Email),
+                    Phone: art.Phone
+                })
+            })
+            response.send(arts)
+        }
+    })
+})
+
+
+
+app.get('/get-all-arts/:tag',(request,response)=>{
+    let arts = [];
+    const {tag} = request.params
+    // const query = `SELECT ID, Title, Description, Dimensions, Price  FROM arts WHERE Username = ?`;
+    const query = `
+    SELECT a.ID, a.Title, a.Description, a.Dimensions, a.Price, a.Type, u.Name, u.Email, u.Phone
+    FROM arts a
+    JOIN users u ON a.Username = u.Username
+    WHERE a.Type = ?
+    `
+    pool.query(query,[tag],(error,results) =>{
+        if(error){
+            console.error('Error retrieving artist:', error);
+            response.status(500).send('Error retrieving arts');
+        }
+        else{
+            results.forEach(art => {
+                arts.push({
+                    ID: art.ID,
+                    Title: art.Title,
+                    Description: art.Description,
+                    Dimensions: art.Dimensions,
+                    Price: art.Price,
+                    Type: art.Type,
+                    Name: art.Name,
+                    Email: Decrypt(art.Email),
+                    Phone: art.Phone
+                })
+            })
+            response.send(arts)
+        }
+    })
 })
 
 // Logout
