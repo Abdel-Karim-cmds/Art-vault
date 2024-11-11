@@ -132,6 +132,10 @@ app.get('/gallery/:tag',(request,response)=>{
     response.render('Gallery Tag')
 })
 
+app.get('/buyer-profile',(request,response)=>{
+    response.render('buyers/profile',{username:request.session.user.Name})
+})
+
 app.get('/not-found', (request, response) => {
     response.render('404')
 })
@@ -397,6 +401,7 @@ app.get('/get-all-arts/:tag',(request,response)=>{
     })
 })
 
+
 // Logout
 app.get('/logout', (request, response) => {
     request.session.destroy((err) => {
@@ -438,12 +443,10 @@ app.post('/login', (request, response) => {
         else if (result.length > 0) {
             delete result[0].Photo
             request.session.user = result[0]
-            // console.log(result[0].Type)
+            response.cookie('user', result[0].Type)
             response.status(200).json({ userType: result[0].Type, success: true, message: "Logins successful" });
-            // response.redirect('/profile')
         } else {
             return response.status(500).json({ error: "Invalid email or password", success: false });
-            // response.render('login', { error: 'Invalid email or password', success: false })
         }
     })
 })
