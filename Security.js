@@ -11,7 +11,6 @@ function Encrypt(text) {
 
 }
 
-
 function Decrypt(cipher) {
     const decipher = createDecipheriv('aes256', key, iv);
     const decryptedMessage = decipher.update(cipher, 'hex', 'utf-8') + decipher.final('utf8');
