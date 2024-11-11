@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Art Vault | {{username}} </title>
     <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/artists.css">
+    <link rel="stylesheet" href="../css/artist profile.css">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -21,12 +21,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.css"
         integrity="sha512-8BU3emz11z9iF75b10oPjjpamM4Mz23yQFQymbtwyPN3mNWHxpgeqyrYnkIUP6A8KyAj5k2p3MiYLtYqew7gIw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
+
 </head>
 
 <body>
-
-
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color: #000 !important;">
             <div class="container-fluid">
@@ -58,11 +56,68 @@
             </div>
         </nav>
     </header>
-    <div class="container" id="artist-container">
-    </div>
 
+    <nav class="main-menu">
+        <div>
+            <div class="user-info">
+                <img src="" alt="user" id="user-pic" />
+                <p id="artistName">USER NAME</p>
+            </div>
+            <ul class="nav-list" id="navList">
+
+            </ul>
+        </div>
+
+    </nav>
+
+    {{!-- <div id="artist-container">
+    </div> --}}
+
+    <section class="content">
+        <div class="left-content" id="artContainer">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Peacock <br>
+                        <span class="text-muted" id="dimensionsArt">5m by 6m</span>
+                    </h2>
+                    <p class="lead">A beautiful peacock</p>
+                    <p class="lead">10000.00 KSH</p>
+                    <p class="lead"> <a
+                            href="mailto:abdelkarimbaschirou@gmail.com?subject=Inquiry about Peackock &body=I want to buy this peacock priced at 10000.00 KSH"
+                            class="btn btn-outline-dark ms-2"><i class="fa fa-envelope" aria-hidden="true"></i> Send an
+                            Email</a> </p>
+                    <p class="lead"> <a href="tel:123456789" class="btn btn-outline-dark ms-2"><i class="fa fa-phone"
+                                aria-hidden="true"></i> Call</a> </p>
+                </div>
+                <div class="col-md-5">
+                    <img src="http://10.66.39.177:3000/art-photo/4f310597-e22a-49cd-af13-2c7780b35b74"
+                        class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Peacock <br>
+                        <span class="text-muted" id="dimensionsArt">5m by 6m</span>
+                    </h2>
+                    <p class="lead">A beautiful peacock</p>
+                    <p class="lead">10000.00 KSH</p>
+                    <p class="lead"> <a href="mailto:abdelkarimbaschirou@gmail.com" class="btn btn-outline-dark ms-2"><i
+                                class="fa fa-envelope" aria-hidden="true"></i> Send an Email</a> </p>
+                    <p class="lead"> <a href="tel:123456789" class="btn btn-outline-dark ms-2"><i class="fa fa-phone"
+                                aria-hidden="true"></i> Call</a> </p>
+                </div>
+                <div class="col-md-5">
+                    <img src="http://10.66.39.177:3000/art-photo/4f310597-e22a-49cd-af13-2c7780b35b74"
+                        class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto">
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
     <script src="../js/check_login.js"></script>
-    {{!-- <script src="js/artists.js"></script> --}}
+    <script src="../js/artist profile.js"></script>
     <script src="../js/functions.js"></script>
 </body>
 

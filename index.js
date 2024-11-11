@@ -265,6 +265,62 @@ app.get('/art-photo/:id',(request,response)=>{
     });
 })
 
+app.get('/get-artist/:username', (request, response) => {
+    console.log('HERE')
+    const query = 'SELECT Name, Instagram, Twitter, Youtube, Tiktok FROM users WHERE Username = ?';
+    const {username} = request.params
+    console.log(username)
+    const encryptedUsername = Encrypt(username)
+
+    pool.query(query, [encryptedUsername], (error, results) => {
+        if (error) {
+            console.error('Error retrieving artist:', error);
+            response.status(500).send('Error retrieving artist');
+        } else if (results.length === 0) {
+            response.status(404).send('Artist not found');
+        } else {
+            const artist = results[0];
+            response.send(artist);
+        }
+    });
+})
+
+app.get('/get-art/:username',(request,response)=>{
+    const {username} = request.params;
+    const encryptedUsername = Encrypt(username)
+    let arts = [];
+    // const query = `SELECT ID, Title, Description, Dimensions, Price  FROM arts WHERE Username = ?`;
+    const query = `
+    SELECT a.ID, a.Title, a.Description, a.Dimensions, a.Price, a.Type, u.Name, u.Email, u.Phone
+    FROM arts a
+    JOIN users u ON a.Username = u.Username
+    WHERE a.Username = ?
+    `
+    pool.query(query,[encryptedUsername],(error,results) =>{
+        if(error){
+            console.error('Error retrieving artist:', error);
+            response.status(500).send('Error retrieving arts');
+        }
+        else{
+            results.forEach(art => {
+                arts.push({
+                    ID: art.ID,
+                    Title: art.Title,
+                    Description: art.Description,
+                    Dimensions: art.Dimensions,
+                    Price: art.Price,
+                    Type: art.Type,
+                    Name: art.Name,
+                    Email: Decrypt(art.Email),
+                    Phone: art.Phone
+                })
+            })
+            response.send(arts)
+        }
+    })
+
+})
+
 // Logout
 app.get('/logout', (request, response) => {
     request.session.destroy((err) => {
@@ -397,7 +453,7 @@ app.post('/upload-art', arts.single('photo'), (request, response) => {
     })
     fs.unlink(imageFile, (err) => {
         if (err) {
-            console.error('Error deleting file:', err);
+            console.error('Error deleting file:', err);  
         }
     })
 })
