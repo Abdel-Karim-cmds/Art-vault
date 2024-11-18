@@ -129,7 +129,13 @@ app.get('/gallery',(request,response)=>{
 })
 
 app.get('/gallery/:tag',(request,response)=>{
-    response.render('Gallery Tag')
+    const {tag} = request.params
+    console.log(tag)
+    response.render('Gallery Tag',{tag:tag})
+})
+
+app.get('/art/:id',(request,response)=>{
+    response.render('Art Info')
 })
 
 app.get('/buyer-profile',(request,response)=>{
@@ -401,9 +407,64 @@ app.get('/get-all-arts/:tag',(request,response)=>{
     })
 })
 
+app.get('/get-art-info/:id',(request,response)=>{
+    const {id} = request.params
+    const query = `
+    SELECT a.ID,a.Description,a.Dimensions,a.Price,a.Title,a.Type,u.Name,u.Email,u.Phone
+    FROM arts a
+    JOIN users u ON a.Username = u.Username
+    WHERE a.ID = ?
+     `;
+    pool.query(query, [id], (error, results) => {
+        if (error) {
+            console.error('Error retrieving art:', error);
+            response.status(500).send('Error retrieving art');
+        } else if (results.length === 0) {
+            response.status(404).send('Art not found');
+        } else {
+            results[0].Email = Decrypt(results[0].Email)
+            response.send(results[0]);
+        }      
+    })
+})
+
+app.get('/get-art-comments/:id',(request,response)=>{
+    const {id} = request.params
+    const query = `
+    SELECT c.Comment, c.Rating, u.Name
+    FROM comments c
+    JOIN users u ON c.Username = u.Username
+    WHERE c.Art = ?`
+    pool.query(query, [id], (error, results) => {
+        if (error) {
+            console.error('Error retrieving comments:', error);
+            response.status(500).send('Error retrieving comments');
+        } else {
+            response.send(results);
+        }
+    })
+})
+
+app.post('/add-comment',(request,response)=>{
+    console.log(request.body)
+    const {Username} = request.session.user
+    const {artId,comment,rating} = request.body
+
+    const query = 'INSERT INTO comments (ID,Comment, Rating, Username, Art) VALUES (?, ?, ?, ?, ?)';
+    const id = uuid4();
+    pool.query(query, [id,comment,rating,Username,artId], (error, results) => {
+        if (error) {
+            console.error('Error adding comment:', error);
+            return response.status(500).json({message:'Error adding comment',success:false});
+        } else {
+            response.status(200).json({message:'Comment added successfully',success:true});
+        }
+    })
+})
 
 // Logout
 app.get('/logout', (request, response) => {
+    console.log("Yo")
     request.session.destroy((err) => {
         if (err) throw err;
         request.session = null;

@@ -60,13 +60,22 @@ function populateArts(data) {
         aTag.innerHTML = `<i class="fa fa-tags" aria-hidden="true"></i> ${art.Type}`
         pTag.appendChild(aTag)
 
+        const pMore = document.createElement('p')
+        pMore.classList.add('lead')
+
+        const aMore = document.createElement('a')
+        aMore.href = `/art/${art.ID}`
+        aMore.classList.add('btn', 'btn-outline-dark', 'ms-2')
+        aMore.innerHTML = '<i class="fa fa-info-circle" aria-hidden="true"></i> More Info'
+        pMore.appendChild(aMore)
+
         descCol.appendChild(h2)
         descCol.appendChild(description)
         descCol.appendChild(price)
         descCol.appendChild(pMail)
         descCol.appendChild(pCall)
         descCol.appendChild(pTag)
-        // descCol.appendChild(pButton)
+        descCol.appendChild(pMore)
 
         const artCol = document.createElement('div')
         artCol.classList.add('col-md-5')

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Vault | Gallery </title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/art info.css">
+    <link rel="stylesheet" href="/css/toast.css">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.css"
+        integrity="sha512-8BU3emz11z9iF75b10oPjjpamM4Mz23yQFQymbtwyPN3mNWHxpgeqyrYnkIUP6A8KyAj5k2p3MiYLtYqew7gIw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color: #000 !important;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler primary" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/artists">Artists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/gallery">Gallery</a>
+                        </li>
+                        <li class="nav-item" id="profile">
+                            <a class="nav-link" href="/profile">Profile</a>
+                        </li>
+                        <li class="nav-item" id="buyer-profile">
+                            <a class="nav-link" href="/buyer-profile">Profile</a>
+                        </li>
+                        <li class="nav-item" id="login">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item" id="logout">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container" style="margin-top: 60px;">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading"><span id="title">Sahil Patel</span> by <span id="artist">Abdel Karim</span><br><span class="text-muted" id="dimensions">600 by 400</span>
+                </h2>
+                <p class="lead" id="description">Brown Indian doing Pharmacy and tired of life</p>
+                <p class="lead" id="price">99999.99 KSH</p>
+                <p class="lead"><a
+                        href="mailto:bdak@gmail.com?subject=Inquiry about Sahil Patel &amp;body=I want to buy this peacock priced at 99999.99 KSH"
+                        class="btn btn-outline-dark ms-2" id="email"><i class="fa fa-envelope" aria-hidden="true"></i> Send an
+                        Email</a></p>
+                <p class="lead"><a href="tel:+254790173686" class="btn btn-outline-dark ms-2" id="phone"><i class="fa fa-phone"
+                            aria-hidden="true"></i> Call</a></p>
+                <p class="lead"><a href="/gallery/realism" class="btn btn-outline-dark ms-2" id="tag"><i class="fa fa-tags"
+                            aria-hidden="true"></i> <span id="tagName"></span></a></p>
+            </div>
+            <div class="col-md-5"><img src="/art-photo/3d069b85-f8c7-4fce-b927-cb3415d65ad5" id="image"
+                    class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"></div>
+        </div>
+        <div class="reviews">
+            <h1>Past Reviews</h1>
+            <div class="review-container" id="reviews">
+
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <button class="btn btn-outline-dark ms-2" id="addreviewBTN" data-toggle="modal" data-target="#addReview"
+            onclick="verifyLogin()"> Drop your review</button>
+
+    </div>
+
+
+    <!-- Form to add a review -->
+    <div class="modal fade" id="addReview" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Drop your review!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="submitComment">
+                        <label for="Rating" class="form-label" id="placeName">Name of the Art</label>
+                        <h2>How would you rate this Art?</h2>
+                        <div class="star-container">
+                            <div class="star-widget">
+                                <input type="radio" name="rate" id="rate-5" value="5">
+                                <label for="rate-5" class="fa fa-star"></label>
+                                <input type="radio" name="rate" id="rate-4" value="4">
+                                <label for="rate-4" class="fa fa-star"></label>
+                                <input type="radio" name="rate" id="rate-3" value="3">
+                                <label for="rate-3" class="fa fa-star"></label>
+                                <input type="radio" name="rate" id="rate-2" value="2">
+                                <label for="rate-2" class="fa fa-star"></label>
+                                <input type="radio" name="rate" id="rate-1" value="1">
+                                <label for="rate-1" class="fa fa-star"></label>
+                            </div>
+                            <p id="feeling"></p>
+                        </div>
+                        <label for="review" class="form-label">Thoughts?</label>
+                        <textarea name="reviewbox" id="reviewbox" placeholder="Describe your experience..."></textarea>
+                        <input type="checkbox" class="form-check-input" id="agreeRating">
+                        <label class="form-check-label" for="agreeRating">I agree to submit this comment about this
+                            art</label>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline-dark ms-2" id="submitRating" disabled>Submit</button>
+                        </div>
+
+                        <div class="pop-up hide">
+                            <div class="message"></div>
+                            <button class="btn btn-outline-dark ms-2" id="close">Close</button>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of the form to submit a review -->
+
+
+    <div id="toast" class="toast">
+        <div class="toast-body">
+        </div>
+    </div>
+
+    <script src="/js/check_login.js"></script>
+    <script src="/js/art info.js"></script>
+    <script src="/js/functions.js"></script>
+</body>
+
+</html>

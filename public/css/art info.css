@@ -1,0 +1,101 @@
+.ratings i {
+    color: #ddcc14;
+    font-size: 1.15rem;
+}
+
+/* REVIEWS */
+
+.reviews h1 {
+    margin: 60px 0 20px;
+}
+
+.review-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.review-card {
+    padding: 20px;
+}
+
+.review-card h2 {
+    margin-bottom: 8px;
+}
+
+.review-card p {
+    margin-top: 10px;
+    line-height: 1.5;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    @supports (-webkit-line-clamp: 3) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.checked {
+    color: orange;
+} 
+textarea{
+    width: 100%;
+    height: 10em;
+    transition: all 0.5s;
+}
+
+.star-container
+{
+    width: 100%;
+    padding: 20px 30x;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.star-container .star-widget input
+{
+    display: none;
+}
+.star-widget label{
+    font-size: 30px;
+    color: #777;
+    pad: 10px;
+    float: right;
+    transition: all 0.5s ease;
+}
+.star-widget{
+    padding-top: 1em;
+    letter-spacing: 10px;
+}
+.star-widget input:not(:checked) ~ label:hover,
+.star-widget input:not(:checked) ~ label:hover ~ label
+{
+    color: #fd4;
+}
+.star-widget input:checked ~ label
+{
+    color: #fd4;
+}
+input#rate-5:checked ~ label
+{
+color: #fe7;
+text-shadow: 0 0 20px gold;
+}
+#feeling
+{
+    /* padding: 1em; */
+    color: gold;
+    /* width: 100px; */
+    /* background-color: #fff; */
+}
+
+.list-group-item.bold{
+    font-weight: 800;
+}

@@ -18,5 +18,9 @@ function verifyPassword(password) {
     return strongRegex.test(password) ? true : false;    //returning boolean value of the password validation check
 }
 
+// module.exports = {
+//     verifyPassword:verifyPassword
+// }
+
 // Example of triggering the toast
 // showToast("This is a toast message!","info");
