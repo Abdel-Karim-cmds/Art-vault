@@ -1,4 +1,4 @@
-const {verifyPassword} = require('./public/js/functions')
+const {verifyPassword} = require('./functions')
 
 describe('verifyPassword', () => {
     test('should return true for a strong password', () => {

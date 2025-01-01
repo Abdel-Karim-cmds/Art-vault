@@ -188,7 +188,7 @@ function populateArt(artInfo){
     document.getElementById('price').innerText = `${artInfo.Price} KSH`
     document.getElementById('dimensions').innerText = artInfo.Dimensions
     // document.getElementById('tag').innerText = artInfo.Type
-    // document.getElementById('artist').innerText = artInfo.Artist
+    document.getElementById('artist').innerText = artInfo.Name;
     document.getElementById('image').src = `/art-photo/${artInfo.ID}`
     document.getElementById('email').href = `mailto:bdak@gmail.com?subject=Inquiry about ${artInfo.Title} &amp;body=I want to buy this ${artInfo.Title} priced at ${artInfo.Price} KSH`
     document.getElementById('phone').href = `tel:${artInfo.Phone}`
